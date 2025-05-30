@@ -1,17 +1,6 @@
 import React from 'react'
 import ProductItem from './ProductItem'
-
-interface Product {
-  id: string
-  stock: number
-  description: string
-  categories: string[]
-  price: number
-}
-
-interface ProductListProps {
-  products: Product[]
-}
+import { ProductListProps } from '../../types/product'
 
 const ProductList: React.FC<ProductListProps> = ({ products }) => {
   return (
