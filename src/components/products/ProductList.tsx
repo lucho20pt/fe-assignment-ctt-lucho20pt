@@ -1,16 +1,16 @@
-import React from 'react';
-import ProductItem from './ProductItem';
+import React from 'react'
+import ProductItem from './ProductItem'
 
 interface Product {
-  id: string;
-  stock: number;
-  description: string;
-  categories: string[];
-  price: number;
+  id: string
+  stock: number
+  description: string
+  categories: string[]
+  price: number
 }
 
 interface ProductListProps {
-  products: Product[];
+  products: Product[]
 }
 
 const ProductList: React.FC<ProductListProps> = ({ products }) => {
@@ -20,13 +20,12 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
       <ul>
         {products.map((product) => (
           <li key={product.id}>
-            <ProductItem />
-            {/* <ProductItem product={product} /> */}
+            <ProductItem product={product} />
           </li>
         ))}
       </ul>
     </section>
-  );
-};
+  )
+}
 
-export default ProductList;
+export default ProductList
