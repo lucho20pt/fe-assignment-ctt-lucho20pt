@@ -19,9 +19,7 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
       <h2>Product List</h2>
       <ul>
         {products.map((product) => (
-          <li key={product.id}>
-            <ProductItem product={product} />
-          </li>
+          <ProductItem key={product.id} product={product} />
         ))}
       </ul>
     </section>
