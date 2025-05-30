@@ -25,7 +25,7 @@ test('ProductList renders without crashing', () => {
   expect(container).toBeInTheDocument();
 });
 
-test.skip('ProductList renders product descriptions if data exists', () => {
+test('ProductList renders product descriptions if data exists', () => {
   render(<ProductList products={mockProducts} />);
   expect(screen.getByText(/Product 1/i)).toBeInTheDocument();
   expect(screen.getByText(/Product 2/i)).toBeInTheDocument();
