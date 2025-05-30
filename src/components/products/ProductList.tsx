@@ -1,10 +1,32 @@
-import React from 'react'
-import ProductItem from './ProductItem'
+import React from 'react';
+import ProductItem from './ProductItem';
 
-const ProductList = () => {
-  return (
-    <ProductItem />
-  )
+interface Product {
+  id: string;
+  stock: number;
+  description: string;
+  categories: string[];
+  price: number;
 }
 
-export default ProductList
+interface ProductListProps {
+  products: Product[];
+}
+
+const ProductList: React.FC<ProductListProps> = ({ products }) => {
+  return (
+    <section>
+      <h2>Product List</h2>
+      <ul>
+        {products.map((product) => (
+          <li key={product.id}>
+            <ProductItem />
+            {/* <ProductItem product={product} /> */}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+};
+
+export default ProductList;

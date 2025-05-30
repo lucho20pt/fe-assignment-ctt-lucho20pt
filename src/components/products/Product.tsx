@@ -33,8 +33,7 @@ const Product: React.FC = () => {
     return <p>Loading products...</p>
   }
 
-  return <ProductList />
-  // return <ProductList products={products} />
+  return <ProductList products={products} />
 }
 
 export default Product
