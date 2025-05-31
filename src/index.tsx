@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom/client'
 import Product from './components/products/Product'
 
 const App = () => (
-  <div className="app">
+  <React.StrictMode>
     <header>
-      <h1>CTT Exercise - Frontend Typescript</h1>
+      <h1>
+        CTT Exercise - Frontend Typescript
+      </h1>
     </header>
     <main>
       <Product />
@@ -13,7 +15,7 @@ const App = () => (
     <footer>
       <p>© 2025 CTT Exercise</p>
     </footer>
-  </div>
+  </React.StrictMode>
 )
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)

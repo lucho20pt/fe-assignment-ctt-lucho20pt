@@ -1,9 +1,17 @@
 import React from 'react'
 import ProductItem from './ProductItem'
+import { ProductListProps } from '../../types/product'
 
-const ProductList = () => {
+const ProductList: React.FC<ProductListProps> = ({ products }) => {
   return (
-    <ProductItem />
+    <section>
+      <h2>Product List</h2>
+      <ul>
+        {products.map((product) => (
+          <ProductItem key={product.id} product={product} />
+        ))}
+      </ul>
+    </section>
   )
 }
 
