@@ -1,11 +1,6 @@
-import { Product } from '../types/product'
+import { Product, ProductAction } from '../types/product'
 
 const initialState: Product[] = []
-
-type ProductAction =
-  | { type: 'ADD_PRODUCT'; payload: Product }
-  | { type: 'UPDATE_PRODUCT'; payload: Product }
-  | { type: 'DELETE_PRODUCT'; payload: Product }
 
 const productReducer = (
   state = initialState,
