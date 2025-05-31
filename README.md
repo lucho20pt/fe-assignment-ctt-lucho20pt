@@ -8,6 +8,16 @@
 2. Store the fetched products in the Redux store.
 3. Display the products using the `ProductList` and `ProductItem` components.
 
+### CRUD Operations
+
+1. Use the `ProductForm` component for creating and editing products.
+2. Use the `ProductDetails` component for viewing detailed information about a product.
+3. Dispatch Redux actions for API calls and state updates:
+   - `ADD_PRODUCT`: Add a new product.
+   - `UPDATE_PRODUCT`: Modify an existing product.
+   - `DELETE_PRODUCT`: Remove a product.
+4. Update the Redux store after successful API responses.
+
 ### State Management
 
 1. Use Redux to manage the state of products.
