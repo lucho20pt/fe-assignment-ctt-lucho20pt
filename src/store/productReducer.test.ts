@@ -1,4 +1,3 @@
-import { Product } from '../types/product'
 import productReducer from './productReducer'
 import { ProductAction } from '../types/product'
 
@@ -20,21 +19,21 @@ const anotherProduct = {
 
 describe('productReducer', () => {
   it('should return the initial state', () => {
-    const initialState: Product[] = []
+    const initialState = { products: [], loading: false, error: null }
     expect(
       productReducer(undefined, { type: 'UNKNOWN_ACTION' } as any)
     ).toEqual(initialState)
   })
 
   it('should handle ADD_PRODUCT', () => {
-    const initialState: Product[] = []
+    const initialState = { products: [], loading: false, error: null }
     const action: ProductAction = { type: 'ADD_PRODUCT', payload: mockProduct }
     const newState = productReducer(initialState, action)
     expect(newState).toEqual([mockProduct])
   })
 
   it('should handle ADD_PRODUCT when state already contains products', () => {
-    const initialState: Product[] = [mockProduct]
+    const initialState = { products: [mockProduct], loading: false, error: null }
     const action: ProductAction = {
       type: 'ADD_PRODUCT',
       payload: anotherProduct,
@@ -44,7 +43,7 @@ describe('productReducer', () => {
   })
 
   it('should handle UPDATE_PRODUCT', () => {
-    const initialState: Product[] = [mockProduct]
+    const initialState = { products: [mockProduct], loading: false, error: null }
     const updatedProduct = { ...mockProduct, description: 'Updated Product' }
     const action: ProductAction = {
       type: 'UPDATE_PRODUCT',
@@ -55,7 +54,7 @@ describe('productReducer', () => {
   })
 
   it('should handle UPDATE_PRODUCT when product does not exist', () => {
-    const initialState: Product[] = [mockProduct]
+    const initialState = { products: [mockProduct], loading: false, error: null }
     const updatedProduct = { ...anotherProduct, description: 'Updated Product' }
     const action: ProductAction = {
       type: 'UPDATE_PRODUCT',
@@ -66,7 +65,7 @@ describe('productReducer', () => {
   })
 
   it('should handle DELETE_PRODUCT', () => {
-    const initialState: Product[] = [mockProduct]
+    const initialState = { products: [mockProduct], loading: false, error: null }
     const action: ProductAction = {
       type: 'DELETE_PRODUCT',
       payload: mockProduct.id,
@@ -76,7 +75,7 @@ describe('productReducer', () => {
   })
 
   it('should handle DELETE_PRODUCT when product does not exist', () => {
-    const initialState: Product[] = [mockProduct]
+    const initialState = { products: [mockProduct], loading: false, error: null }
     const action: ProductAction = {
       type: 'DELETE_PRODUCT',
       payload: anotherProduct.id,
