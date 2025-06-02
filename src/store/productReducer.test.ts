@@ -127,4 +127,55 @@ describe('productReducer', () => {
       error: null,
     })
   })
+
+  it('should handle FETCH_PRODUCTS_SUCCESS', () => {
+    const action: ProductAction = {
+      type: 'FETCH_PRODUCTS_SUCCESS',
+      payload: [mockProduct, anotherProduct],
+    }
+    const newState = productReducer(initialState, action)
+    expect(newState).toEqual({
+      products: [mockProduct, anotherProduct],
+      loading: false,
+      error: null,
+    })
+  })
+
+  it('should handle FETCH_PRODUCTS_SUCCESS with empty payload', () => {
+    const action: ProductAction = {
+      type: 'FETCH_PRODUCTS_SUCCESS',
+      payload: [],
+    }
+    const newState = productReducer(initialState, action)
+    expect(newState).toEqual({
+      products: [],
+      loading: false,
+      error: null,
+    })
+  })
+
+  it('should handle FETCH_PRODUCTS_FAILURE', () => {
+    const action: ProductAction = {
+      type: 'FETCH_PRODUCTS_FAILURE',
+      payload: 'Network error',
+    }
+    const newState = productReducer(initialState, action)
+    expect(newState).toEqual({
+      products: [],
+      loading: false,
+      error: 'Network error',
+    })
+  })
+
+  it('should handle FETCH_PRODUCTS_START', () => {
+    const action: ProductAction = {
+      type: 'FETCH_PRODUCTS_START',
+    }
+    const newState = productReducer(initialState, action)
+    expect(newState).toEqual({
+      products: [],
+      loading: true,
+      error: null,
+    })
+  })
 })
