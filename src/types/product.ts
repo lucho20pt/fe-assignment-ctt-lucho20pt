@@ -1,3 +1,11 @@
+export interface RootState {
+  products: {
+    products: Product[]
+    loading: boolean
+    error: string | null
+  }
+}
+
 export interface Product {
   id: string
   stock: number
