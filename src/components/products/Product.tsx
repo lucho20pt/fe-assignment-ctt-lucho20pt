@@ -12,6 +12,10 @@ const Product: React.FC = () => {
   if (loading) {
     return <p>Loading products...</p>
   }
+  
+  if (error) {
+    return <p>Error loading products: {error}</p>
+  }
 
   return <ProductList products={products} />
 }
