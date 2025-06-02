@@ -13,8 +13,9 @@ const productReducer = (
       return state.map((product) =>
         product.id === action.payload.id ? action.payload : product
       )
-    case 'DELETE_PRODUCT':
-      return state.filter((product) => product.id !== action.payload.id)
+    case 'DELETE_PRODUCT': {
+      return state.filter((product) => product.id !== action.payload)
+    }
     default:
       return state
   }
