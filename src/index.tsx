@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
-import Product from './components/products/Product';
-import store from './store/store';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { Provider } from 'react-redux'
+import Product from './components/products/Product'
+import store from './store'
 
 const App = () => (
   <React.StrictMode>
@@ -18,7 +18,7 @@ const App = () => (
       </footer>
     </Provider>
   </React.StrictMode>
-);
+)
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-root.render(<App />);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+root.render(<App />)
