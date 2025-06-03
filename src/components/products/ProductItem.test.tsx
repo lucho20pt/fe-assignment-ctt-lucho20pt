@@ -14,5 +14,5 @@ const mockProduct = {
 test('renders ProductItem with mock data', () => {
   render(<ProductItem product={mockProduct} />)
   expect(screen.getByText('Product 1')).toBeInTheDocument()
-  expect(screen.getByText('Price: $19.99')).toBeInTheDocument()
+  expect(screen.getByText('Stock: 10')).toBeInTheDocument()
 })
