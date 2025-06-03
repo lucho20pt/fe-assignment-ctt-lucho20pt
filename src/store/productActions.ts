@@ -5,7 +5,7 @@ export const fetchProducts = () => async (dispatch: any) => {
 
   try {
     const url = 'http://localhost:8081/api/products.json' // Ensure the URL is correct
-    console.log('Fetching products from:', url) // Debugging log
+    // console.log('Fetching products from:', url) // Debugging log
 
     const response = await fetch(url)
 
@@ -14,7 +14,7 @@ export const fetchProducts = () => async (dispatch: any) => {
     }
 
     const data: Product[] = await response.json()
-    console.log('Fetched Products:', data) // Debugging log
+    // console.log('Fetched Products:', data) // Debugging log
 
     dispatch({ type: 'FETCH_PRODUCTS_SUCCESS', payload: data || [] }) // Fallback to empty array
   } catch (error) {

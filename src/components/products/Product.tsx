@@ -17,9 +17,7 @@ const Product: React.FC = () => {
     dispatch(fetchProducts())
   }, [dispatch])
 
-  console.log('Products state:', products) // Debugging log
-  console.log('Loading state:', loading) // Debugging log
-  console.log('Error state:', error) // Debugging log
+  // console.log('Products state:', products) // Debugging log
 
   if (loading) {
     return <p>Loading products...</p>
