@@ -26,7 +26,7 @@ const Product: React.FC = () => {
   }
 
   if (error) {
-    return <p style={{ color: 'red' }}>Error loading products: {error}</p>
+    return <p>Error loading products: {error}</p>
   }
 
   if (!products || products.length === 0) {

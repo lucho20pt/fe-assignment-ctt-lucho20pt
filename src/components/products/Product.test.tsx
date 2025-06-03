@@ -1,63 +1,77 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import { Provider } from 'react-redux'
+import configureStore from 'redux-mock-store'
+import { thunk } from 'redux-thunk'
 import '@testing-library/jest-dom'
 import Product from './Product'
-import { useDispatch, useSelector } from 'react-redux'
 
-// Mock react-redux hooks
-jest.mock('react-redux', () => ({
-  useDispatch: jest.fn(),
-  useSelector: jest.fn(),
-}))
+const mockStore = configureStore([thunk])
 
-test('Product component renders without crashing', () => {
-  ;(useSelector as unknown as jest.Mock).mockReturnValue({
-    products: [],
-    loading: false,
-    error: null,
-  })
-
-  const { container } = render(<Product />)
-  expect(container).toBeInTheDocument()
-})
-
-test('Product component renders loading state', () => {
-  ;(useSelector as unknown as jest.Mock).mockReturnValue({
-    products: [],
-    loading: true,
-    error: null,
-  })
-
-  const { getByText } = render(<Product />)
-  expect(getByText('Loading products...')).toBeInTheDocument()
-})
-
-test('Product component renders error state', () => {
-  ;(useSelector as unknown as jest.Mock).mockReturnValue({
-    products: [],
-    loading: false,
-    error: 'Network error',
-  })
-
-  const { getByText } = render(<Product />)
-  expect(getByText('Error loading products: Network error')).toBeInTheDocument()
-})
-
-test('Product component renders product list', () => {
-  ;(useSelector as unknown as jest.Mock).mockReturnValue({
-    products: [
-      {
-        id: '1',
-        description: 'Product 1',
-        price: 19.99,
-        stock: 10,
-        categories: ['Category A', 'Category B'], // Ensure categories are defined
+describe('Product Component', () => {
+  it('renders loading state', () => {
+    const store = mockStore({
+      products: {
+        products: [],
+        loading: true,
+        error: null,
       },
-    ],
-    loading: false,
-    error: null,
+    })
+
+    const { getByText } = render(
+      <Provider store={store}>
+        <Product />
+      </Provider>
+    )
+
+    expect(getByText('Loading products...')).toBeInTheDocument()
   })
 
-  const { container } = render(<Product />)
-  expect(container).toBeInTheDocument()
+  it('renders error state', () => {
+    const store = mockStore({
+      products: {
+        products: [],
+        loading: false,
+        error: 'Network error',
+      },
+    })
+
+    const { getByText } = render(
+      <Provider store={store}>
+        <Product />
+      </Provider>
+    )
+
+    expect(
+      getByText('Error loading products: Network error')
+    ).toBeInTheDocument()
+  })
+
+  it('renders product list', () => {
+    const store = mockStore({
+      products: {
+        products: [
+          {
+            id: '1',
+            stock: 10,
+            description: 'Product 1',
+            categories: ['Category A', 'Category B'],
+            price: 19.99,
+          },
+        ],
+        loading: false,
+        error: null,
+      },
+    })
+
+    const { getByText } = render(
+      <Provider store={store}>
+        <Product />
+      </Provider>
+    )
+
+    expect(getByText('Product 1')).toBeInTheDocument()
+    expect(getByText('Price: $19.99')).toBeInTheDocument()
+    expect(getByText('Stock: 10')).toBeInTheDocument()
+  })
 })
