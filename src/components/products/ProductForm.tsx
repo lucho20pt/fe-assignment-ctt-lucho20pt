@@ -22,6 +22,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
       price: 0,
     }
   )
+  const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
   const { categories, handleRawInputChange, resetCategories } = useCategories(
     product.categories
@@ -37,8 +38,29 @@ const ProductForm: React.FC<ProductFormProps> = ({
     }))
   }
 
+  const validateForm = () => {
+    const newErrors: { [key: string]: string } = {}
+    if (!product.description.trim()) {
+      newErrors.description = 'Description is required.'
+    }
+    if (categories.length === 0) {
+      newErrors.categories = 'At least one category is required.'
+    }
+    if (product.price <= 0) {
+      newErrors.price = 'Price must be greater than 0.'
+    }
+    if (product.stock < 0) {
+      newErrors.stock = 'Stock cannot be negative.'
+    }
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    if (!validateForm()) {
+      return
+    }
     const productWithIdAndCategories = {
       ...product,
       id: product.id || generateUuid(),
@@ -76,6 +98,9 @@ const ProductForm: React.FC<ProductFormProps> = ({
           required
           className="p-2 text-indigo-500 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
         />
+        {errors.description && (
+          <p className="bg-red-500 text-sm p-1">{errors.description}</p>
+        )}
       </div>
       <div className="flex flex-col gap-2">
         <label
@@ -93,6 +118,9 @@ const ProductForm: React.FC<ProductFormProps> = ({
           required
           className="p-2 text-indigo-500 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
         />
+        {errors.categories && (
+          <p className="bg-red-500 text-sm p-1">{errors.categories}</p>
+        )}
       </div>
       <div className="flex flex-col gap-2">
         <label htmlFor="price" className="block text-lg font-medium text-white">
@@ -108,6 +136,9 @@ const ProductForm: React.FC<ProductFormProps> = ({
           required
           className="p-2 text-indigo-500 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
         />
+        {errors.price && (
+          <p className="bg-red-500 text-sm p-1">{errors.price}</p>
+        )}
       </div>
       <div className="flex flex-col gap-2">
         <label htmlFor="stock" className="block text-lg font-medium text-white">
@@ -123,6 +154,9 @@ const ProductForm: React.FC<ProductFormProps> = ({
           required
           className="p-2 text-indigo-500 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
         />
+        {errors.stock && (
+          <p className="bg-red-500 text-sm p-1">{errors.stock}</p>
+        )}
       </div>
       <button
         type="submit"
