@@ -8,18 +8,9 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - .:/app
+      - ./src:/app/src
     stdin_open: true
     tty: true
-    develop:
-      watch:
-        - action: sync
-          path: .
-          target: /app
-          ignore:
-            - node_modules/
-        - action: rebuild
-          path: package.json
 
   backend:
     build:
@@ -31,12 +22,3 @@ services:
       - ./src:/app/src
     stdin_open: true
     tty: true
-    develop:
-      watch:
-        - action: sync
-          path: ./src
-          target: /app/src
-          ignore:
-            - node_modules/
-        - action: rebuild
-          path: package.json
