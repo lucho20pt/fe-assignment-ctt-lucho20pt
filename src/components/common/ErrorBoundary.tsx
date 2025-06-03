@@ -20,7 +20,9 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('ErrorBoundary caught an error:', error, errorInfo)
+    if (process.env.NODE_ENV !== 'test') {
+      console.error('ErrorBoundary caught an error:', error, errorInfo) // Suppress during tests
+    }
   }
 
   render() {
