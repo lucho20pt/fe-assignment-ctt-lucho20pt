@@ -18,7 +18,6 @@ const productReducer = (
     case 'FETCH_PRODUCTS_START':
       return { ...state, loading: true, error: null }
     case 'FETCH_PRODUCTS_SUCCESS':
-      console.log('Reducer received products:', action.payload) // Debugging log
       return { ...state, loading: false, products: action.payload || [] } // Update products
     case 'FETCH_PRODUCTS_FAILURE':
       return { ...state, loading: false, error: action.payload }

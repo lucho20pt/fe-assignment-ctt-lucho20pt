@@ -1,30 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
-import Product from './components/products/Product'
 import store from './store'
+import Header from './components/layout/Header'
+import Footer from './components/layout/Footer'
+import Product from './components/products/Product'
 
 const App = () => (
   <React.StrictMode>
     <Provider store={store}>
-      <div className="container mx-auto flex flex-col gap-10">
-        <header
-          className="flex flex-col items-center justify-center p-8 
-        bg-indigo-700 text-white text-lg rounded-lg shadow-md"
-        >
-          <h1 className="text-5xl font-bold text-center">
-            CTT Exercise - Frontend Typescript
-          </h1>
-        </header>
-        <main
-          className="flex flex-col items-center justify-center p-8
-        bg-indigo-600 text-white text-lg rounded-lg shadow-md"
-        >
+      <div
+        className="container mx-auto flex flex-col gap-10
+      text-white text-lg"
+      >
+        <Header />
+        <main className="flex flex-col items-center justify-center">
           <Product />
         </main>
-        <footer>
-          <p>© {new Date().getFullYear()} CTT Exercise</p>
-        </footer>
+        <Footer />
       </div>
     </Provider>
   </React.StrictMode>

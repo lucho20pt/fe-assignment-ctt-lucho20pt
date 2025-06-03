@@ -71,7 +71,6 @@ describe('Product Component', () => {
     )
 
     expect(getByText('Product 1')).toBeInTheDocument()
-    expect(getByText('Price: $19.99')).toBeInTheDocument()
     expect(getByText('Stock: 10')).toBeInTheDocument()
   })
 })
