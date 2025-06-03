@@ -7,9 +7,10 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
     <section>
       <h2>Product List</h2>
       <ul>
-        {products.map((product) => (
-          <ProductItem key={product.id} product={product} />
-        ))}
+        {products &&
+          products.map((product) => (
+            <ProductItem key={product.id} product={product} />
+          ))}
       </ul>
     </section>
   )
