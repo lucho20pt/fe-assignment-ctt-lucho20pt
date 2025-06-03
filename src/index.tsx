@@ -14,7 +14,7 @@ const App = () => (
         <Product />
       </main>
       <footer>
-        <p>© 2025 CTT Exercise</p>
+        <p>© {new Date().getFullYear()} CTT Exercise</p>
       </footer>
     </Provider>
   </React.StrictMode>
