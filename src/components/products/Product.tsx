@@ -2,9 +2,14 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 import ProductList from './ProductList'
-import { RootState, ProductAction } from '../../types/product'
+import {
+  Product as ProductType,
+  RootState,
+  ProductAction,
+} from '../../types/product'
 import { fetchProducts } from '../../store/productActions'
 import ErrorBoundary from '../common/ErrorBoundary'
+import ProductForm from './ProductForm'
 
 const Product: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, unknown, ProductAction> =
@@ -17,7 +22,9 @@ const Product: React.FC = () => {
     dispatch(fetchProducts())
   }, [dispatch])
 
-  // console.log('Products state:', products) // Debugging log
+  const handleFormSubmit = (product: ProductType) => {
+    dispatch({ type: 'ADD_PRODUCT', payload: product }) // Dispatch ADD_PRODUCT action
+  }
 
   if (loading) {
     return <p>Loading products...</p>
@@ -31,7 +38,12 @@ const Product: React.FC = () => {
     return <p>No products available.</p>
   }
 
-  return <ProductList products={products} />
+  return (
+    <>
+      <ProductForm onSubmit={handleFormSubmit} />
+      <ProductList products={products} />
+    </>
+  )
 }
 
 const ProductWithErrorBoundary: React.FC = () => (
