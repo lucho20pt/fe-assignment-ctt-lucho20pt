@@ -1,20 +1,48 @@
 import { Product, ProductAction } from '../types/product'
 
-const initialState: Product[] = []
+const initialState: {
+  products: Product[]
+  loading: boolean
+  error: null | string
+} = {
+  products: [],
+  loading: false,
+  error: null,
+}
 
 const productReducer = (
   state = initialState,
   action: ProductAction
-): Product[] => {
+): typeof initialState => {
   switch (action.type) {
+    case 'FETCH_PRODUCTS_START':
+      return { ...state, loading: true, error: null }
+    case 'FETCH_PRODUCTS_SUCCESS':
+      console.log('Reducer received products:', action.payload) // Debugging log
+      return { ...state, loading: false, products: action.payload || [] } // Update products
+    case 'FETCH_PRODUCTS_FAILURE':
+      return { ...state, loading: false, error: action.payload }
     case 'ADD_PRODUCT':
-      return [...state, action.payload]
+      return {
+        ...state,
+        products: [...state.products, action.payload],
+      }
     case 'UPDATE_PRODUCT':
-      return state.map((product) =>
-        product.id === action.payload.id ? action.payload : product
-      )
+      return {
+        ...state,
+        products: state.products.map((product) =>
+          product.id === action.payload.id
+            ? { ...product, ...action.payload }
+            : product
+        ),
+      }
     case 'DELETE_PRODUCT':
-      return state.filter((product) => product.id !== action.payload.id)
+      return {
+        ...state,
+        products: state.products.filter(
+          (product) => product.id !== action.payload
+        ),
+      }
     default:
       return state
   }

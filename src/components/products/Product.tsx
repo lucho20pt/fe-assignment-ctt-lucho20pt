@@ -1,37 +1,45 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { ThunkDispatch } from 'redux-thunk'
 import ProductList from './ProductList'
-import productData from '../../data/products.json'
-import { Product as ProductProps } from '../../types/product'
+import { RootState, ProductAction } from '../../types/product'
+import { fetchProducts } from '../../store/productActions'
+import ErrorBoundary from '../common/ErrorBoundary'
 
 const Product: React.FC = () => {
-  const [products, setProducts] = React.useState<ProductProps[]>([])
-  const [loading, setLoading] = React.useState<boolean>(true)
+  const dispatch: ThunkDispatch<RootState, unknown, ProductAction> =
+    useDispatch()
+  const { products, loading, error } = useSelector(
+    (state: RootState) => state.products
+  )
 
-  React.useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        // Load data from the JSON file
-        setProducts(productData)
-      } catch (error) {
-        // console.error('Error loading products:', error)
-        if (error instanceof Error) {
-          throw new Error('Error loading products: ' + error.message);
-        } else {
-          throw new Error('Error loading products: Unknown error');
-        }
-      } finally {
-        setLoading(false)
-      }
-    }
+  useEffect(() => {
+    dispatch(fetchProducts())
+  }, [dispatch])
 
-    fetchProducts()
-  }, [])
+  console.log('Products state:', products) // Debugging log
+  console.log('Loading state:', loading) // Debugging log
+  console.log('Error state:', error) // Debugging log
 
   if (loading) {
     return <p>Loading products...</p>
   }
 
+  if (error) {
+    return <p>Error loading products: {error}</p>
+  }
+
+  if (!products || products.length === 0) {
+    return <p>No products available.</p>
+  }
+
   return <ProductList products={products} />
 }
 
-export default Product
+const ProductWithErrorBoundary: React.FC = () => (
+  <ErrorBoundary>
+    <Product />
+  </ErrorBoundary>
+)
+
+export default ProductWithErrorBoundary

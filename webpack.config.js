@@ -27,6 +27,10 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.css$/, // Add rule for CSS files
+        use: ['style-loader', 'css-loader'], // Use style-loader and css-loader
+      },
     ],
   },
   plugins: [
@@ -37,5 +41,6 @@ module.exports = {
   devServer: {
     static: './dist',
     hot: true,
+    watchFiles: ['src/**/*'],
   },
 }

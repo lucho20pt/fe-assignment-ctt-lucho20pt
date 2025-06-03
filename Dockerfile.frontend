@@ -1,0 +1,18 @@
+# Use a lightweight Node.js image for AMD64
+FROM node:16-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Copy package.json and install dependencies
+COPY package.json .
+RUN npm install
+
+# Copy application code
+COPY . .
+
+# Expose port for the frontend
+EXPOSE 8080
+
+# Start the React development server
+CMD ["npm", "run", "dev"]
