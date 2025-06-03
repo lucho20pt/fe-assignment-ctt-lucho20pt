@@ -1,9 +1,13 @@
 import { Product, ProductAction } from '../types/product'
 
-const initialState = {
-  products: [] as Product[],
+const initialState: {
+  products: Product[]
+  loading: boolean
+  error: null | string
+} = {
+  products: [],
   loading: false,
-  error: null as string | null,
+  error: null,
 }
 
 const productReducer = (
@@ -14,7 +18,8 @@ const productReducer = (
     case 'FETCH_PRODUCTS_START':
       return { ...state, loading: true, error: null }
     case 'FETCH_PRODUCTS_SUCCESS':
-      return { ...state, loading: false, products: action.payload }
+      console.log('Reducer received products:', action.payload) // Debugging log
+      return { ...state, loading: false, products: action.payload || [] } // Update products
     case 'FETCH_PRODUCTS_FAILURE':
       return { ...state, loading: false, error: action.payload }
     case 'ADD_PRODUCT':
@@ -26,7 +31,9 @@ const productReducer = (
       return {
         ...state,
         products: state.products.map((product) =>
-          product.id === action.payload.id ? action.payload : product
+          product.id === action.payload.id
+            ? { ...product, ...action.payload }
+            : product
         ),
       }
     case 'DELETE_PRODUCT':
