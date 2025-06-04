@@ -1,13 +1,8 @@
 import React, { useState } from 'react'
-import { Product } from '../../types/product'
+import { Product, ProductFormProps } from '../../types/product'
 import { generateUuid } from '../../utils/generateUuid'
 import useCategories from '../../hooks/useCategories'
 import InputField from '../common/InputField'
-
-interface ProductFormProps {
-  initialProduct?: Product
-  onSubmit: (product: Product) => void
-}
 
 const ProductForm: React.FC<ProductFormProps> = ({
   initialProduct,
