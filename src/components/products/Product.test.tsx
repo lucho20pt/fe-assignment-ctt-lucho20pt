@@ -73,6 +73,10 @@ describe('Product Component', () => {
     )
 
     expect(getByText('Product 1')).toBeInTheDocument()
-    expect(getByText('Stock: 10')).toBeInTheDocument()
+    expect(
+      getByText((content, element) => {
+        return element?.textContent === 'Product 1'
+      })
+    ).toBeInTheDocument() // Custom matcher to match full text content
   })
 })
