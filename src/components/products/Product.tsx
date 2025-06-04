@@ -31,17 +31,22 @@ const Product: React.FC = () => {
   }
 
   if (error) {
-    return <p>Error loading products: {error}</p>
-  }
-
-  if (!products || products.length === 0) {
-    return <p>No products available.</p>
+    return (
+      <p className="text-red-500">
+        Error loading products: {error}. Please check your backend server, API
+        URL, or network connection.
+      </p>
+    )
   }
 
   return (
     <>
       <ProductForm onSubmit={handleFormSubmit} />
-      <ProductList products={products} />
+      {products && products.length > 0 ? (
+        <ProductList products={products} />
+      ) : (
+        <p>No products available.</p>
+      )}
     </>
   )
 }
