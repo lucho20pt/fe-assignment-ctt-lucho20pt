@@ -14,7 +14,7 @@ const App = () => (
       text-white text-lg"
       >
         <Header />
-        <main className="flex flex-col items-center justify-center">
+        <main className="flex flex-col items-center justify-center gap-10">
           <Product />
         </main>
         <Footer />

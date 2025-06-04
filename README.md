@@ -18,12 +18,6 @@
    - `DELETE_PRODUCT`: Remove a product.
 4. Update the Redux store after successful API responses.
 
-### State Management
-
-1. Use Redux to manage the state of products.
-2. Minimize API calls by caching data in the Redux store.
-3. Implement optimistic updates for better user experience.
-
 ---
 
 ## Development Process
@@ -66,3 +60,18 @@ docker-compose down
   docker-compose restart frontend
   docker-compose restart backend
   ```
+
+---
+
+### Redux Enhancements
+
+- Improved `productReducer` to handle `ADD_PRODUCT`, `UPDATE_PRODUCT`, and `DELETE_PRODUCT` actions.
+- Enhanced type safety for `RootState` and `ProductAction`.
+
+### Error Handling Improvements
+
+- Updated `ErrorBoundary` to suppress `console.error` logs during tests for cleaner output.
+
+### API Integration
+
+- Enhanced `fetchProducts` action to handle HTTP errors gracefully and ensure proper type safety.
