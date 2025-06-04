@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 import ProductList from './ProductList'
@@ -10,6 +10,7 @@ import {
 import { fetchProducts } from '../../store/productActions'
 import ErrorBoundary from '../common/ErrorBoundary'
 import ProductForm from './ProductForm'
+import ProductNavigation from './ProductNavigation'
 
 const Product: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, unknown, ProductAction> =
@@ -18,12 +19,15 @@ const Product: React.FC = () => {
     (state: RootState) => state.products
   )
 
+  const [view, setView] = useState<'list' | 'form'>('list')
+
   useEffect(() => {
     dispatch(fetchProducts())
   }, [dispatch])
 
   const handleFormSubmit = (product: ProductType) => {
     dispatch({ type: 'ADD_PRODUCT', payload: product }) // Dispatch ADD_PRODUCT action
+    setView('list') // Switch back to the product list after adding a product
   }
 
   if (loading) {
@@ -31,17 +35,26 @@ const Product: React.FC = () => {
   }
 
   if (error) {
-    return <p>Error loading products: {error}</p>
-  }
-
-  if (!products || products.length === 0) {
-    return <p>No products available.</p>
+    return (
+      <p className="text-red-500">
+        Error loading products: {error}. Please check your backend server, API
+        URL, or network connection.
+      </p>
+    )
   }
 
   return (
     <>
-      <ProductForm onSubmit={handleFormSubmit} />
-      <ProductList products={products} />
+      <ProductNavigation view={view} setView={setView} />
+      {view === 'list' ? (
+        products && products.length > 0 ? (
+          <ProductList products={products} />
+        ) : (
+          <p>No products available.</p>
+        )
+      ) : (
+        <ProductForm onSubmit={handleFormSubmit} />
+      )}
     </>
   )
 }

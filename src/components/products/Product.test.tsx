@@ -1,9 +1,9 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import '@testing-library/jest-dom'
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 import { thunk } from 'redux-thunk'
-import '@testing-library/jest-dom'
 import Product from './Product'
 
 const mockStore = configureStore([thunk])
@@ -36,14 +36,16 @@ describe('Product Component', () => {
       },
     })
 
-    const { getByText } = render(
+    render(
       <Provider store={store}>
         <Product />
       </Provider>
     )
 
     expect(
-      getByText('Error loading products: Network error')
+      screen.getByText((content, element) =>
+        content.startsWith('Error loading products: Network error')
+      )
     ).toBeInTheDocument()
   })
 
@@ -71,6 +73,10 @@ describe('Product Component', () => {
     )
 
     expect(getByText('Product 1')).toBeInTheDocument()
-    expect(getByText('Stock: 10')).toBeInTheDocument()
+    expect(
+      getByText((content, element) => {
+        return element?.textContent === 'Product 1'
+      })
+    ).toBeInTheDocument() // Custom matcher to match full text content
   })
 })

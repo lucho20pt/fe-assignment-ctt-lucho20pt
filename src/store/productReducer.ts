@@ -18,15 +18,16 @@ const productReducer = (
     case 'FETCH_PRODUCTS_START':
       return { ...state, loading: true, error: null }
     case 'FETCH_PRODUCTS_SUCCESS':
-      return { ...state, loading: false, products: action.payload || [] } // Update products
+      return { ...state, loading: false, products: action.payload || [] }
     case 'FETCH_PRODUCTS_FAILURE':
       return { ...state, loading: false, error: action.payload }
-    case 'ADD_PRODUCT':
+    case 'ADD_PRODUCT': {
       return {
         ...state,
         products: [...state.products, action.payload],
       }
-    case 'UPDATE_PRODUCT':
+    }
+    case 'UPDATE_PRODUCT': {
       return {
         ...state,
         products: state.products.map((product) =>
@@ -35,13 +36,15 @@ const productReducer = (
             : product
         ),
       }
-    case 'DELETE_PRODUCT':
+    }
+    case 'DELETE_PRODUCT': {
       return {
         ...state,
         products: state.products.filter(
           (product) => product.id !== action.payload
         ),
       }
+    }
     default:
       return state
   }

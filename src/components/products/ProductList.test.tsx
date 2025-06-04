@@ -1,38 +1,37 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import ProductList from './ProductList';
+import React from 'react'
+import { render, screen } from '@testing-library/react'
+import '@testing-library/jest-dom'
+import ProductList from './ProductList'
 
-const mockProducts = [
-  {
-    id: '1',
-    stock: 10,
-    description: 'Product 1',
-    categories: ['A'],
-    price: 19.99,
-  },
-  {
-    id: '2',
-    stock: 5,
-    description: 'Product 2',
-    categories: ['B'],
-    price: 29.99,
-  },
-];
+describe('ProductList', () => {
+  it('should render the product list with products', () => {
+    const mockProducts = [
+      {
+        id: '1',
+        stock: 10,
+        description: 'Product 1',
+        categories: ['Category1'],
+        price: 100,
+      },
+      {
+        id: '2',
+        stock: 5,
+        description: 'Product 2',
+        categories: ['Category2'],
+        price: 50,
+      },
+    ]
 
-test('ProductList renders without crashing', () => {
-  const { container } = render(<ProductList products={mockProducts} />);
-  expect(container).toBeInTheDocument();
-});
+    render(<ProductList products={mockProducts} />)
 
-test('ProductList renders product descriptions if data exists', () => {
-  render(<ProductList products={mockProducts} />);
-  expect(screen.getByText(/Product 1/i)).toBeInTheDocument();
-  expect(screen.getByText(/Product 2/i)).toBeInTheDocument();
-});
+    expect(screen.getByText('<ProductList />')).toBeInTheDocument()
+    expect(screen.getByText('Product 1')).toBeInTheDocument()
+    expect(screen.getByText('Product 2')).toBeInTheDocument()
+  })
 
-test('ProductList handles empty data gracefully', () => {
-  render(<ProductList products={[]} />);
-  expect(screen.queryByText(/Product 1/i)).not.toBeInTheDocument();
-  expect(screen.queryByText(/Product 2/i)).not.toBeInTheDocument();
-});
+  it('should render a message when no products are available', () => {
+    render(<ProductList products={[]} />)
+
+    expect(screen.getByText('No products available.')).toBeInTheDocument()
+  })
+})
