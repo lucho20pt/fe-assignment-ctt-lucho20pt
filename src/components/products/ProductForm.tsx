@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Product, ProductFormProps } from '../../types/product'
 import { generateUuid } from '../../utils/generateUuid'
-import useCategories from '../../hooks/useCategories'
+import { isValidUuid } from '../../utils/validateUuid'
 import InputField from '../common/InputField'
 
 const ProductForm: React.FC<ProductFormProps> = ({
@@ -20,10 +20,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
   )
   const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
-  const { categories, rawInput, handleRawInputChange } = useCategories(
-    product.categories
-  )
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -34,13 +30,36 @@ const ProductForm: React.FC<ProductFormProps> = ({
     }))
   }
 
+  const handleCategoriesChange = (value: string) => {
+    const updatedCategories = value
+      .split(',')
+      .map((category) => category.trim())
+
+    console.log('Updated Categories:', updatedCategories) // Debugging log
+
+    setProduct((prev) => ({
+      ...prev,
+      categories: updatedCategories,
+    }))
+  }
+
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {}
     if (!product.description.trim()) {
       newErrors.description = 'Description is required.'
     }
-    if (categories.length === 0) {
-      newErrors.categories = 'At least one category is required.'
+    if (product.categories.length === 0) {
+      newErrors.categories = 'At least one category is required.' // Stop further validation if empty
+    } else {
+      console.log('Categories being validated:', product.categories) // Debugging log
+      const invalidCategories = product.categories.filter(
+        (category) => !isValidUuid(category)
+      )
+      console.log('Invalid Categories:', invalidCategories) // Debugging log
+      if (invalidCategories.length > 0) {
+        newErrors.categories =
+          'All categories must be valid UUIDs (e.g., 123e4567-e89b-12d3-a456-426614174000).' // Validate UUIDs only if not empty
+      }
     }
     if (product.price <= 0) {
       newErrors.price = 'Price must be greater than 0.'
@@ -60,7 +79,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
     const productWithIdAndCategories = {
       ...product,
       id: product.id || generateUuid(),
-      categories, // Use the updated categories
     }
 
     // Log the product with updated categories
@@ -73,6 +91,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
 
   return (
     <form
+      noValidate
       onSubmit={handleSubmit}
       className="w-full max-w-md flex flex-col gap-5 p-4 bg-indigo-500 shadow-md rounded-md"
     >
@@ -89,15 +108,15 @@ const ProductForm: React.FC<ProductFormProps> = ({
         onChange={handleChange}
       />
       <InputField
-        label="Categories (comma-separated):"
+        label="Categories (UUIDs, comma-separated):"
         id="categories"
         name="categories"
         type="text"
-        value={rawInput} // Bind to rawInput state
-        placeholder="e.g., Electronics, Home Appliances"
+        placeholder="Enter valid UUIDs, comma-separated"
+        value={product.categories.join(', ')}
         required
         error={errors.categories}
-        onChange={(e) => handleRawInputChange(e.target.value)}
+        onChange={(e) => handleCategoriesChange(e.target.value)}
       />
       <InputField
         label="Price:"
