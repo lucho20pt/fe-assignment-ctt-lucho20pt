@@ -21,6 +21,11 @@ export interface ProductItemProps {
   product: Product
 }
 
+export interface ProductFormProps {
+  initialProduct?: Product
+  onSubmit: (product: Product) => void
+}
+
 export type ProductAction =
   | { type: 'ADD_PRODUCT'; payload: Product }
   | { type: 'UPDATE_PRODUCT'; payload: Product }
