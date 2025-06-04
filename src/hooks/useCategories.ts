@@ -3,8 +3,10 @@ import { generateUuid } from '../utils/generateUuid'
 
 const useCategories = (initialCategories: string[] = []) => {
   const [categories, setCategories] = useState<string[]>(initialCategories)
+  const [rawInput, setRawInput] = useState<string>('') // Add rawInput state
 
   const handleRawInputChange = useCallback((input: string) => {
+    setRawInput(input) // Update rawInput state
     const transformedCategories = input
       .split(',')
       .map((cat) => cat.trim())
@@ -17,15 +19,17 @@ const useCategories = (initialCategories: string[] = []) => {
             ? cat // Keep valid UUIDs
             : generateUuid() // Generate UUIDs for invalid entries
       )
-    setCategories(transformedCategories)
+    setCategories(transformedCategories) // Update categories immediately
   }, [])
 
   const resetCategories = useCallback(() => {
     setCategories([])
+    setRawInput('') // Reset rawInput state
   }, [])
 
   return {
     categories,
+    rawInput, // Return rawInput state
     handleRawInputChange,
     resetCategories,
   }
