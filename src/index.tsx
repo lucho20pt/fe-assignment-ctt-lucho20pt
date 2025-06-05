@@ -10,7 +10,7 @@ const App = () => (
   <React.StrictMode>
     <Provider store={store}>
       <div
-        className="container mx-auto flex flex-col gap-10
+        className="container mx-auto flex flex-col gap-10 py-5
       text-white text-lg"
       >
         <Header />
