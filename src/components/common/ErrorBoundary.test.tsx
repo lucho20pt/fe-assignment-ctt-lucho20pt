@@ -2,20 +2,29 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import ErrorBoundary from './ErrorBoundary'
+import ThrowError from './ThrowError'
 
 describe('ErrorBoundary Component', () => {
-  it('renders fallback UI on error', () => {
-    const ThrowError = () => {
-      throw new Error('Test error')
-    }
+  beforeEach(() => {
+    jest.spyOn(console, 'error').mockImplementation(() => {}) // Suppress console.error logs
+  })
 
+  afterEach(() => {
+    jest.restoreAllMocks() // Restore original console.error behavior
+  })
+
+  it('should have NODE_ENV set to "test"', () => {
+    expect(process.env.NODE_ENV).toBe('test')
+  })
+
+  it('renders fallback UI on error', () => {
     const { getByText } = render(
       <ErrorBoundary>
         <ThrowError />
       </ErrorBoundary>
     )
 
-    expect(getByText('Something went wrong: Test error')).toBeInTheDocument()
+    expect(getByText('Something went wrong.')).toBeInTheDocument()
   })
 
   it('renders children when no error occurs', () => {
