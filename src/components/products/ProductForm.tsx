@@ -35,7 +35,9 @@ const ProductForm: React.FC<ProductFormProps> = ({
       .split(',')
       .map((category) => category.trim())
 
-    console.log('Updated Categories:', updatedCategories) // Debugging log
+    if (process.env.NODE_ENV !== 'test') {
+      console.log('Updated Categories:', updatedCategories) // Debugging log
+    }
 
     setProduct((prev) => ({
       ...prev,
@@ -51,11 +53,15 @@ const ProductForm: React.FC<ProductFormProps> = ({
     if (product.categories.length === 0) {
       newErrors.categories = 'At least one category is required.' // Stop further validation if empty
     } else {
-      console.log('Categories being validated:', product.categories) // Debugging log
+      if (process.env.NODE_ENV !== 'test') {
+        console.log('Categories being validated:', product.categories) // Debugging log
+      }
       const invalidCategories = product.categories.filter(
         (category) => !isValidUuid(category)
       )
-      console.log('Invalid Categories:', invalidCategories) // Debugging log
+      if (process.env.NODE_ENV !== 'test') {
+        console.log('Invalid Categories:', invalidCategories) // Debugging log
+      }
       if (invalidCategories.length > 0) {
         newErrors.categories =
           'All categories must be valid UUIDs (e.g., 123e4567-e89b-12d3-a456-426614174000).' // Validate UUIDs only if not empty
