@@ -11,9 +11,14 @@ const Footer = () => {
         alt="CTT"
         className="h-10"
       />
-      <p className="text-center flex-grow font-semibold">
-        © {new Date().getFullYear()} CTT Exercise
-      </p>
+      <ul className="text-center flex-grow font-semibold">
+        <li>
+          <p>© {new Date().getFullYear()} CTT Exercise</p>
+        </li>
+        <li>
+          <p>All rights reserved by lucho20pt</p>
+        </li>
+      </ul>
     </footer>
   )
 }

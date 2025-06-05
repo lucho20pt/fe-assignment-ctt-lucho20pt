@@ -10,11 +10,11 @@ const App = () => (
   <React.StrictMode>
     <Provider store={store}>
       <div
-        className="container mx-auto flex flex-col gap-10 py-5
+        className="container mx-auto flex flex-col gap-10 pt-10
       text-white text-lg"
       >
         <Header />
-        <main className="flex flex-col items-center justify-center gap-10 p-5">
+        <main className="flex flex-col items-center justify-center gap-10 p-5 py-10 bg-white">
           <Product />
         </main>
         <Footer />
