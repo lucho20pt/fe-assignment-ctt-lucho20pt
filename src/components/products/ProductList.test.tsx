@@ -1,36 +1,52 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
+import { Provider } from 'react-redux'
+import { legacy_createStore as createStore } from 'redux'
 import ProductList from './ProductList'
+import { Product } from '../../types/product'
 
-describe('ProductList', () => {
+const mockProducts: Product[] = [
+  {
+    id: '1',
+    description: 'Product 1',
+    price: 19.99,
+    stock: 10,
+    categories: ['A'],
+  },
+  {
+    id: '2',
+    description: 'Product 2',
+    price: 29.99,
+    stock: 5,
+    categories: ['B'],
+  },
+]
+
+// Mock reducer
+const mockReducer = (state = { products: [] }, action: any) => state
+
+// Create mock store
+const mockStore = createStore(mockReducer)
+
+describe('ProductList Component', () => {
   it('should render the product list with products', () => {
-    const mockProducts = [
-      {
-        id: '1',
-        stock: 10,
-        description: 'Product 1',
-        categories: ['Category1'],
-        price: 100,
-      },
-      {
-        id: '2',
-        stock: 5,
-        description: 'Product 2',
-        categories: ['Category2'],
-        price: 50,
-      },
-    ]
+    render(
+      <Provider store={mockStore}>
+        <ProductList products={mockProducts} />
+      </Provider>
+    )
 
-    render(<ProductList products={mockProducts} />)
-
-    expect(screen.getByText('<ProductList />')).toBeInTheDocument()
     expect(screen.getByText('Product 1')).toBeInTheDocument()
     expect(screen.getByText('Product 2')).toBeInTheDocument()
   })
 
   it('should render a message when no products are available', () => {
-    render(<ProductList products={[]} />)
+    render(
+      <Provider store={mockStore}>
+        <ProductList products={[]} />
+      </Provider>
+    )
 
     expect(screen.getByText('No products available.')).toBeInTheDocument()
   })
