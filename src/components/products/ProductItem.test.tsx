@@ -1,6 +1,8 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
+import { Provider } from 'react-redux'
+import { legacy_createStore as createStore } from 'redux'
 import ProductItem from './ProductItem'
 import { Product } from '../../types/product'
 
@@ -12,8 +14,18 @@ const mockProduct: Product = {
   categories: ['A'],
 }
 
+// Mock reducer
+const mockReducer = (state = { products: [] }, action: any) => state
+
+// Create mock store
+const mockStore = createStore(mockReducer)
+
 test('renders ProductItem with mock data', () => {
-  render(<ProductItem product={mockProduct} />)
+  render(
+    <Provider store={mockStore}>
+      <ProductItem product={mockProduct} />
+    </Provider>
+  )
   expect(screen.getByText('Product 1')).toBeInTheDocument()
   expect(
     screen.getByText((content, element) => {
