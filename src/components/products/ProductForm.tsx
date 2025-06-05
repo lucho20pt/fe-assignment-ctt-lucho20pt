@@ -100,7 +100,9 @@ const ProductForm: React.FC<ProductFormProps> = ({
       className="flex flex-col items-center justify-center gap-10 p-6
     bg-indigo-700 bg-opacity-90 rounded-lg shadow-md"
     >
-      <h2 className="text-2xl md:text-3xl font-bold text-center bg-pink-500">{title}</h2>
+      <h2 className="text-2xl md:text-3xl font-bold text-center bg-pink-500">
+        <code>{title}</code>
+      </h2>
 
       <form
         noValidate
