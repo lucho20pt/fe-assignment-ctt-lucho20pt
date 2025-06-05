@@ -1,7 +1,19 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { ProductItemProps } from '../../types/product'
 
 const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
+  const dispatch = useDispatch()
+
+  const handleDelete = () => {
+    const confirmed = window.confirm(
+      'Are you sure you want to delete this product?'
+    )
+    if (confirmed) {
+      dispatch({ type: 'DELETE_PRODUCT', payload: product.id })
+    }
+  }
+
   return (
     <li
       className="flex flex-row border p-4 rounded shadow-md gap-5
@@ -21,7 +33,10 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
       </article>
 
       <aside className="flex flex-row gap-4 items-start">
-        <button className="p-2 hover:bg-indigo-600 text-xl bg-red-500 rounded-3xl">
+        <button
+          className="p-2 hover:bg-indigo-600 text-xl bg-red-500 rounded-3xl"
+          onClick={handleDelete}
+        >
           ✖
         </button>
         <button className="p-2 hover:bg-indigo-600 text-xl bg-green-500 rounded-3xl">
