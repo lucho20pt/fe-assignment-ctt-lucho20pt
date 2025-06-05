@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { Product, ProductFormProps } from '../../types/product'
+
 import { generateUuid } from '../../utils/generateUuid'
-import { isValidUuid } from '../../utils/validateUuid'
+import { validateProduct } from '../../utils/validateProduct'
+
 import InputField from '../common/InputField'
-import Card from '../common/Card' // Import Card component
+import Card from '../common/Card'
 
 const ProductForm: React.FC<ProductFormProps> = ({
   initialProduct,
@@ -41,41 +43,19 @@ const ProductForm: React.FC<ProductFormProps> = ({
     }))
   }
 
-  const validateForm = () => {
-    const newErrors: { [key: string]: string } = {}
-    if (!product.description.trim()) {
-      newErrors.description = 'Description is required.'
-    }
-    if (product.categories.length === 0) {
-      newErrors.categories = 'At least one category is required.'
-    } else {
-      const invalidCategories = product.categories.filter(
-        (category) => !isValidUuid(category)
-      )
-      if (invalidCategories.length > 0) {
-        newErrors.categories =
-          'All categories must be valid UUIDs (e.g., 123e4567-e89b-12d3-a456-426614174000).'
-      }
-    }
-    if (product.price <= 0) {
-      newErrors.price = 'Price must be greater than 0.'
-    }
-    if (product.stock < 0) {
-      newErrors.stock = 'Stock cannot be negative.'
-    }
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!validateForm()) {
+    const validationErrors = validateProduct(product)
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors)
       return
     }
+
     const productWithIdAndCategories = {
       ...product,
       id: product.id || generateUuid(),
     }
+
     onSubmit(productWithIdAndCategories)
   }
 
