@@ -48,8 +48,11 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
       </li>
 
       {isEditing && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60">
-          <div className="bg-black p-6 rounded shadow-md bg-opacity-20">
+        <div
+          className="fixed inset-0 flex items-center justify-center 
+        bg-black bg-opacity-60"
+        >
+          <div className="bg-black p-8 rounded shadow-md bg-opacity-20">
             <ProductForm initialProduct={product} onSubmit={handleFormSubmit} />
             <button
               className="mt-4 p-2 bg-red-500 text-white rounded"

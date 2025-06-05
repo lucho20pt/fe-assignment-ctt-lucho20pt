@@ -7,8 +7,8 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
 
   return (
     <section
-      className="flex flex-col items-center justify-center gap-10 p-8
-    bg-indigo-300 rounded-lg shadow-md"
+      className="flex flex-col items-center justify-center gap-10 p-6
+    bg-indigo-700 bg-opacity-90 rounded-lg shadow-md"
     >
       <h2 className="text-3xl font-bold text-center">{title}</h2>
       <ul className="flex flex-col gap-10">

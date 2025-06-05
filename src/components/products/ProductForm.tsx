@@ -8,7 +8,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
   initialProduct,
   onSubmit,
 }) => {
-  const title = '<AddProductForm />'
+  const title = initialProduct ? '<EditProductForm />' : '<AddProductForm />'
   const [product, setProduct] = useState<Product>(
     initialProduct || {
       id: '',
@@ -96,63 +96,69 @@ const ProductForm: React.FC<ProductFormProps> = ({
   }
 
   return (
-    <form
-      noValidate
-      onSubmit={handleSubmit}
-      className="w-full max-w-md flex flex-col gap-5 p-4 bg-indigo-500 shadow-md rounded-md"
+    <section
+      className="flex flex-col items-center justify-center gap-10 p-6
+    bg-indigo-700 bg-opacity-90 rounded-lg shadow-md"
     >
       <h2 className="text-3xl font-bold text-center">{title}</h2>
-      <InputField
-        label="Description:"
-        id="description"
-        name="description"
-        type="text"
-        value={product.description}
-        placeholder="Enter product description"
-        required
-        error={errors.description}
-        onChange={handleChange}
-      />
-      <InputField
-        label="Categories (UUIDs, comma-separated):"
-        id="categories"
-        name="categories"
-        type="text"
-        placeholder="Enter valid UUIDs, comma-separated"
-        value={product.categories.join(', ')}
-        required
-        error={errors.categories}
-        onChange={(e) => handleCategoriesChange(e.target.value)}
-      />
-      <InputField
-        label="Price:"
-        id="price"
-        name="price"
-        type="number"
-        value={product.price}
-        placeholder="Enter product price"
-        required
-        error={errors.price}
-        onChange={handleChange}
-      />
-      <InputField
-        label="Stock:"
-        id="stock"
-        name="stock"
-        type="number"
-        value={product.stock}
-        placeholder="Enter available stock"
-        required
-        error={errors.stock}
-        onChange={handleChange}
-      />
-      <button
-        type="submit"
-        className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      
+      <form
+        noValidate
+        onSubmit={handleSubmit}
+        className="w-full max-w-md flex flex-col gap-5 p-4 bg-indigo-500 shadow-md rounded-md"
       >
-        Submit
-      </button>
-    </form>
+        <InputField
+          label="Description:"
+          id="description"
+          name="description"
+          type="text"
+          value={product.description}
+          placeholder="Enter product description"
+          required
+          error={errors.description}
+          onChange={handleChange}
+        />
+        <InputField
+          label="Categories (UUIDs, comma-separated):"
+          id="categories"
+          name="categories"
+          type="text"
+          placeholder="Enter valid UUIDs, comma-separated"
+          value={product.categories.join(', ')}
+          required
+          error={errors.categories}
+          onChange={(e) => handleCategoriesChange(e.target.value)}
+        />
+        <InputField
+          label="Price:"
+          id="price"
+          name="price"
+          type="number"
+          value={product.price}
+          placeholder="Enter product price"
+          required
+          error={errors.price}
+          onChange={handleChange}
+        />
+        <InputField
+          label="Stock:"
+          id="stock"
+          name="stock"
+          type="number"
+          value={product.stock}
+          placeholder="Enter available stock"
+          required
+          error={errors.stock}
+          onChange={handleChange}
+        />
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          Submit
+        </button>
+      </form>
+    </section>
   )
 }
 
