@@ -1,9 +1,5 @@
 import React from 'react'
-
-interface ProductActionsProps {
-  onDelete: () => void
-  onEdit: () => void
-}
+import { ProductActionsProps } from '../../types/product'
 
 const ProductActions: React.FC<ProductActionsProps> = ({
   onDelete,

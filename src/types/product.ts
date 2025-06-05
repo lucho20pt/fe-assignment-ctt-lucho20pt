@@ -32,6 +32,11 @@ export interface ProductNavigationProps {
   setView: (view: 'list' | 'form') => void
 }
 
+export interface ProductActionsProps {
+  onDelete: () => void
+  onEdit: () => void
+}
+
 export type ProductAction =
   | { type: 'ADD_PRODUCT'; payload: Product }
   | { type: 'UPDATE_PRODUCT'; payload: Product }
