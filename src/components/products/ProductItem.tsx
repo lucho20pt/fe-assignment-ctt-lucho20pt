@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { ProductItemProps } from '../../types/product'
+import ProductActions from './ProductActions'
 
 const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
   const dispatch = useDispatch()
@@ -12,6 +13,10 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
     if (confirmed) {
       dispatch({ type: 'DELETE_PRODUCT', payload: product.id })
     }
+  }
+
+  const handleEdit = () => {
+    console.log('Edit product:', product.id)
   }
 
   return (
@@ -31,18 +36,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
           Categories: <strong>{product.categories.join(', ')}</strong>
         </p>
       </article>
-
-      <aside className="flex flex-row gap-4 items-start">
-        <button
-          className="p-2 hover:bg-indigo-600 text-xl bg-red-500 rounded-3xl"
-          onClick={handleDelete}
-        >
-          ✖
-        </button>
-        <button className="p-2 hover:bg-indigo-600 text-xl bg-green-500 rounded-3xl">
-          ✏️
-        </button>
-      </aside>
+      <ProductActions onDelete={handleDelete} onEdit={handleEdit} />
     </li>
   )
 }
