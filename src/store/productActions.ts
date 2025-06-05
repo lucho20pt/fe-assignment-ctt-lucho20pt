@@ -40,7 +40,9 @@ export const addProduct = (product: Product) => async (dispatch: Dispatch) => {
     const data: Product = await response.json()
     dispatch({ type: 'ADD_PRODUCT', payload: data })
   } catch (error) {
-    console.error('Failed to add product:', error)
+    if (process.env.NODE_ENV !== 'test') {
+      console.error('Failed to add product:', error)
+    }
   }
 }
 
@@ -54,7 +56,9 @@ export const updateProduct =
       })
       dispatch({ type: 'UPDATE_PRODUCT', payload: product })
     } catch (error) {
-      console.error('Failed to update product:', error)
+      if (process.env.NODE_ENV !== 'test') {
+        console.error('Failed to update product:', error)
+      }
     }
   }
 
@@ -63,6 +67,8 @@ export const deleteProduct = (id: string) => async (dispatch: Dispatch) => {
     await fetch(`/api/products/${id}`, { method: 'DELETE' })
     dispatch({ type: 'DELETE_PRODUCT', payload: id })
   } catch (error) {
-    console.error('Failed to delete product:', error)
+    if (process.env.NODE_ENV !== 'test') {
+      console.error('Failed to delete product:', error)
+    }
   }
 }
