@@ -5,6 +5,7 @@ import { generateUuid } from '../../utils/generateUuid'
 import { validateProduct } from '../../utils/validateProduct'
 
 import InputField from '../common/InputField'
+import TextareaField from '../common/TextareaField'
 import Card from '../common/Card'
 
 const ProductForm: React.FC<ProductFormProps> = ({
@@ -82,11 +83,10 @@ const ProductForm: React.FC<ProductFormProps> = ({
           onChange={handleChange}
         />
 
-        <InputField
+        <TextareaField
           label="Categories (UUIDs, comma-separated):"
           id="categories"
           name="categories"
-          type="text"
           placeholder="Enter valid UUIDs, comma-separated"
           value={product.categories.join(', ')}
           required
