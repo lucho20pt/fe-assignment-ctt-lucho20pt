@@ -13,6 +13,7 @@ export interface Product {
   categories: string[]
   price: number
 }
+
 export interface ProductListProps {
   products: Product[]
 }
@@ -24,6 +25,11 @@ export interface ProductItemProps {
 export interface ProductFormProps {
   initialProduct?: Product
   onSubmit: (product: Product) => void
+}
+
+export interface ProductNavigationProps {
+  view: 'list' | 'form'
+  setView: (view: 'list' | 'form') => void
 }
 
 export type ProductAction =

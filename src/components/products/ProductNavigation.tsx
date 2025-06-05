@@ -1,16 +1,15 @@
 import React from 'react'
-
-interface ProductNavigationProps {
-  view: 'list' | 'form'
-  setView: (view: 'list' | 'form') => void
-}
+import { ProductNavigationProps } from '../../types/product'
 
 const ProductNavigation: React.FC<ProductNavigationProps> = ({
   view,
   setView,
 }) => {
   return (
-    <nav className="flex justify-center items-center p-4 bg-indigo-900 shadow-md">
+    <nav
+      className="flex justify-center items-center p-4 px-8 
+    bg-indigo-900 shadow-md rounded-xl"
+    >
       <ul className="flex gap-4 text-xl">
         <li>
           <button
