@@ -8,7 +8,7 @@ const ProductNavigation: React.FC<ProductNavigationProps> = ({
   return (
     <nav
       className="flex justify-center items-center p-4 px-8 
-    bg-indigo-900 shadow-md rounded-xl"
+    bg-gray-700 shadow-md rounded-xl"
     >
       <ul className="flex gap-4 text-xl">
         <li>

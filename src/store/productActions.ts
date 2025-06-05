@@ -18,7 +18,9 @@ export const fetchProducts = () => async (dispatch: Dispatch) => {
     dispatch({ type: 'FETCH_PRODUCTS_SUCCESS', payload: data })
   } catch (error) {
     const errorMessage =
-      error instanceof Error
+      process.env.NODE_ENV === 'development'
+        ? 'Failed to fetch products. Ensure the backend server is running.'
+        : error instanceof Error
         ? error.message
         : 'Failed to fetch products. Please check your network connection.'
     dispatch({ type: 'FETCH_PRODUCTS_FAILURE', payload: errorMessage })
