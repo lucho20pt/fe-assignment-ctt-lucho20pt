@@ -100,12 +100,13 @@ const ProductForm: React.FC<ProductFormProps> = ({
       className="flex flex-col items-center justify-center gap-10 p-6
     bg-indigo-700 bg-opacity-90 rounded-lg shadow-md"
     >
-      <h2 className="text-3xl font-bold text-center">{title}</h2>
-      
+      <h2 className="text-2xl md:text-3xl font-bold text-center bg-pink-500">{title}</h2>
+
       <form
         noValidate
         onSubmit={handleSubmit}
-        className="w-full max-w-md flex flex-col gap-5 p-4 bg-indigo-500 shadow-md rounded-md"
+        className="w-full max-w-md flex flex-col gap-5 p-4 
+        bg-indigo-500 shadow-md rounded-md"
       >
         <InputField
           label="Description:"

@@ -29,22 +29,29 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
   return (
     <>
       <li
-        className="flex flex-row border p-4 rounded shadow-md gap-5
-      bg-indigo-500"
+        className="flex flex-col md:flex-row items-center justify-center p-4 gap-5
+        border rounded shadow-md bg-indigo-500"
       >
-        <article className="flex-1">
-          <h3 className="text-2xl font-bold">{product.description}</h3>
+        <article className="w-full flex flex-col gap-2">
+          <h3 className="text-2xl font-bold">
+            {product.description}
+          </h3>
           <p>
-            Price: <strong>${product.price.toFixed(2)}</strong>
+            <u>Price</u>: <strong>${product.price.toFixed(2)}</strong>
           </p>
           <p>
-            Stock: <strong>{product.stock}</strong>
+            <u>Stock</u>: <strong>{product.stock}</strong>
           </p>
           <p>
-            Categories: <strong>{product.categories.join(', ')}</strong>
+            <u>Categories</u>: <br />
+            <strong>
+              <code className="text-sm">{product.categories.join(', ')}</code>
+            </strong>
           </p>
         </article>
-        <ProductActions onDelete={handleDelete} onEdit={handleEdit} />
+        <div>
+          <ProductActions onDelete={handleDelete} onEdit={handleEdit} />
+        </div>
       </li>
 
       {isEditing && (
